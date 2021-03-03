@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Teste</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            <nav class="navbar navbar-login navbar-expand bg-info justify-content-center ">
+                <div class="container">
+                    <ul class="navbar-nav nav-justified w-100 text-center mt-1">
+
+                        <li class="nav-item ">
+                            <span id="clock"></span>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="nav-link btn btn-link text-light">Sair</button>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        }
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script type="text/javascript">
+        var clockElement = document.getElementById('clock');
+
+        function clock() {
+            var date = new Date();
+
+            clockElement.textContent = date.toLocaleString();
+        }
+
+        setInterval(clock, 1000);
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
